@@ -1,7 +1,12 @@
 
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}LMS{% endblock %}
+
+
 {% block content %}
-<h1>Hello World</h1>
-<p>i hate webdev</p>
+
+
+<h1>Welcome to Library Management System</h1>
+<p>Click here to view catalogues.</p>
+{% comment %} <a href="{% url 'catalogues' %}" class="btn btn-primary">View Catalogues</a> {% endcomment %}
 {% endblock %}
