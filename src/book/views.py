@@ -9,11 +9,29 @@ from django.contrib import messages
 
 from .forms import CreateUserForm
 
-from .decoraters import unauthenticated_user
+from .decoraters import unauthenticated_user, allowed_users, admin_only
+
+from .models import *
+
+from django.db.models import Count
 
 # Create your views here.
 def home(request, *args, **kwargs):
-    return render(request, 'home.html')
+    
+
+    context = {
+        
+    }
+    return render(request, 'home.html', context)
+
+@allowed_users(allowed_roles=['Patrons','Librarians'])
+def catalogue(request):
+    book_titles = Book.objects.values('title').annotate(title_count=Count('title')).filter(title_count__gte=1)
+    books = [Book.objects.filter(title=book['title']).first() for book in book_titles]
+    context = {
+        'books': books,
+    }
+    return render(request, 'catalogue.html', context)
 
 @unauthenticated_user
 def register(request):
