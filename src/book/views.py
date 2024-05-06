@@ -24,7 +24,7 @@ def home(request, *args, **kwargs):
     }
     return render(request, 'home.html', context)
 
-@allowed_users(allowed_roles=['Patrons','Librarians'])
+
 def catalogue(request):
     book_titles = Book.objects.values('title').annotate(title_count=Count('title')).filter(title_count__gte=1)
     books = [Book.objects.filter(title=book['title']).first() for book in book_titles]
