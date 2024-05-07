@@ -7,13 +7,16 @@ from django.contrib.auth.models import Group
 
 from django.contrib import messages
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm, BookForm
 
 from .decoraters import unauthenticated_user, allowed_users, admin_only
 
 from .models import *
 
 from django.db.models import Count
+
+from .filters import BookFilter
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request, *args, **kwargs):
@@ -26,10 +29,18 @@ def home(request, *args, **kwargs):
 
 
 def catalogue(request):
-    book_titles = Book.objects.values('title').annotate(title_count=Count('title')).filter(title_count__gte=1)
-    books = [Book.objects.filter(title=book['title']).first() for book in book_titles]
+
+    #book_titles = Book.objects.values('title').annotate(title_count=Count('title')).filter(title_count__gte=1)
+    #books = [Book.objects.filter(title=book['title']).first() for book in book_titles]
+
+    books = Book.objects.all()
+
+    myFilter = BookFilter(request.GET, queryset=books)
+    books = myFilter.qs
+
     context = {
         'books': books,
+        'myFilter': myFilter
     }
     return render(request, 'catalogue.html', context)
 
@@ -71,3 +82,43 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('home')
+
+@login_required(login_url='/login')
+@allowed_users(allowed_roles=['Librarians'])
+def createBook(request):
+    form = BookForm()
+    if request.method == 'POST':
+        #print('Printing POST:', request.POST)
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+     
+    context = {'form': form, }
+    return render(request, 'bookForm.html', context)
+
+@login_required(login_url='/login')
+@allowed_users(allowed_roles=['Librarians'])
+def updateBook(request, pk):
+    book = Book.objects.get(id=pk)
+    form = BookForm(instance=book)
+
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogue')
+
+    context = {'form': form}
+    return render(request, 'bookForm.html', context)
+
+@login_required(login_url='/login')
+@allowed_users(allowed_roles=['Librarians'])
+def deleteBook(request, pk):
+    book = Book.objects.get(id=pk)
+    if request.method == "POST":
+        book.delete()
+        return redirect('catalogue')
+
+    context = {'book': book}
+    return render(request, 'deleteBook.html', context)

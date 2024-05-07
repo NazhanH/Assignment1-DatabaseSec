@@ -26,5 +26,8 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('catalogue/', views.catalogue, name='catalogue'),
+    path('createBook/', views.createBook, name='createBook'),
+    path('updateBook/<str:pk>/', views.updateBook, name='updateBook'),
+    path('deleteBook/<str:pk>/', views.deleteBook, name='deleteBook'),
 
 ]

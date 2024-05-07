@@ -7,7 +7,14 @@
 
 <h1>Catalogue</h1>
 <p>Shit's down below yo</p>
-
+<!-- do some shit to make only librarian able to see -->
+<p><a href="{% url 'createBook' %}">add books here mate!</a></p>
+<br>
+    <form method="get">
+        {{myFilter.form}}
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+<br>
     <table class="table">
         <thead>
             <tr>
@@ -15,6 +22,12 @@
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Publisher</th>
+                <th scope="col">Year published</th>
+                <th scope="col">Availability</th>
+
+                <!-- do some shit to make only librarian able to see -->
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +37,12 @@
                 <td>{{ book.title }}</td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.publication }}</td>
+                <td>{{ book.year}}</td>
+                <td>{{ book.available|yesno:"O,X" }}</td>
+
+                <!-- do some shit to make only librarian able to see -->
+                <td><a class="btn btn-sm btn-info" href="{% url 'updateBook' book.id %}" >Update</a></td>
+                <td><a class="btn btn-sm btn-danger" href="{% url 'deleteBook' book.id %}" >Delete</a></td>
                 </tr>
             {% endfor %}
 
