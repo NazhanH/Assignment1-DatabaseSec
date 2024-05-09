@@ -29,5 +29,9 @@ urlpatterns = [
     path('createBook/', views.createBook, name='createBook'),
     path('updateBook/<str:pk>/', views.updateBook, name='updateBook'),
     path('deleteBook/<str:pk>/', views.deleteBook, name='deleteBook'),
+    path('borrowList/', views.borrowList, name='borrowList'),
+    path('borrowBook/', views.borrowBook, name='borrowBook'),
+    path('returnBook/<str:pk>/', views.returnBook, name='returnBook'),
+
 
 ]

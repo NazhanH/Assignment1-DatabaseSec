@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 
 from django.contrib import messages
 
-from .forms import CreateUserForm, BookForm
+from .forms import *
 
 from .decoraters import unauthenticated_user, allowed_users, admin_only
 
@@ -15,8 +15,10 @@ from .models import *
 
 from django.db.models import Count
 
-from .filters import BookFilter
+from .filters import BookFilter, BorrowListFilter
 from django.contrib.auth.decorators import login_required
+
+from datetime import date
 
 # Create your views here.
 def home(request, *args, **kwargs):
@@ -79,6 +81,7 @@ def login(request):
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
+@login_required(login_url='/login')
 def logout(request):
     auth_logout(request)
     return redirect('home')
@@ -122,3 +125,68 @@ def deleteBook(request, pk):
 
     context = {'book': book}
     return render(request, 'deleteBook.html', context)
+
+@login_required(login_url='/login')
+@allowed_users(allowed_roles=['Librarians'])
+def borrowBook(request):
+
+    form = BorrowBookForm()
+    if request.method == 'POST':
+        form = BorrowBookForm(request.POST)
+        
+        if form.is_valid() :
+            borrow = form.save(commit=False)
+            book = borrow.book
+            
+            if book.available == False:
+                messages.error(request, 'Book is not available')
+                return redirect('borrowBook')
+            
+            book.available = False
+            book.save()
+            borrow.save()
+            return redirect('borrowList')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'borrowBook.html', context)
+
+@login_required(login_url='/login')
+@allowed_users(allowed_roles=['Librarians'])
+def returnBook(request,pk):
+
+    borrowList = BorrowList.objects.get(id=pk)
+    form = ReturnBookForm(instance=borrowList)
+
+    if request.method == 'POST':
+        form = ReturnBookForm(request.POST, instance=borrowList)
+        if form.is_valid():
+            borrow = form.save(commit=False)
+            book = borrow.book
+            book.available = True
+            delta = borrow.return_date - borrow.expected_return_date
+            borrow.fine = delta.days * 0.5
+            book.save()
+            borrow.save()
+            return redirect('borrowList')
+
+    context = {
+        'form': form,   
+        }
+    return render(request, 'returnBook.html', context)
+
+@login_required(login_url='/login')
+@allowed_users(allowed_roles=['Librarians'])
+def borrowList(request):
+
+    borrowList = BorrowList.objects.all()
+
+    myFilter = BorrowListFilter(request.GET, queryset=borrowList)
+    borrowList = myFilter.qs
+
+    context = {
+        'borrowList': borrowList,
+        'myFilter': myFilter
+    }
+    return render(request, 'borrowList.html', context)

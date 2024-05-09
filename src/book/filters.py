@@ -13,3 +13,12 @@ class BookFilter(django_filters.FilterSet):
     class Meta:
         model = Book
         fields = ['title', 'author', 'publication', 'year']
+
+class BorrowListFilter(django_filters.FilterSet):
+
+    book = CharFilter(field_name='book__title', lookup_expr='icontains')
+    borrower = CharFilter(field_name='borrower__username', lookup_expr='icontains')
+
+    class Meta:
+        model = BorrowList
+        fields = ['book', 'borrower', 'borrow_date']
