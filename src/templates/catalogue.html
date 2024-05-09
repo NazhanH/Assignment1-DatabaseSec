@@ -7,8 +7,9 @@
 
 <h1>Catalogue</h1>
 <p>Shit's down below yo</p>
-<!-- do some shit to make only librarian able to see -->
+{% if perms.book.add_book %}
 <p><a href="{% url 'createBook' %}">add books here mate!</a></p>
+{% endif %}
 <br>
     <form method="get">
         {{myFilter.form}}
@@ -25,9 +26,10 @@
                 <th scope="col">Year published</th>
                 <th scope="col">Availability</th>
 
-                <!-- do some shit to make only librarian able to see -->
+                {% if perms.book.add_book %}
                 <th scope="col">Update</th>
                 <th scope="col">Delete</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -40,9 +42,10 @@
                 <td>{{ book.year}}</td>
                 <td>{{ book.available|yesno:"O,X" }}</td>
 
-                <!-- do some shit to make only librarian able to see -->
+                {% if perms.book.add_book %}
                 <td><a class="btn btn-sm btn-info" href="{% url 'updateBook' book.id %}" >Update</a></td>
                 <td><a class="btn btn-sm btn-danger" href="{% url 'deleteBook' book.id %}" >Delete</a></td>
+                {% endif %}
                 </tr>
             {% endfor %}
 
