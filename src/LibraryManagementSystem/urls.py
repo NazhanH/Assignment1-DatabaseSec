@@ -17,9 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from book.views import home
+from book import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', views.home, name='home'),
+    path('register/', views.register, name='register'),
+    path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
+    path('catalogue/', views.catalogue, name='catalogue'),
+    path('createBook/', views.createBook, name='createBook'),
+    path('updateBook/<str:pk>/', views.updateBook, name='updateBook'),
+    path('deleteBook/<str:pk>/', views.deleteBook, name='deleteBook'),
+    path('borrowList/', views.borrowList, name='borrowList'),
+    path('borrowBook/', views.borrowBook, name='borrowBook'),
+    path('returnBook/<str:pk>/', views.returnBook, name='returnBook'),
+
+
 ]
