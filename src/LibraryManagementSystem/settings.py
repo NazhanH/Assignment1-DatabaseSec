@@ -82,8 +82,16 @@ WSGI_APPLICATION = 'LibraryManagementSystem.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mssql',
+        'NAME': 'LMS',
+        'USER': 's-ferhad',
+        'PASSWORD': 'Pa$$w0rd',
+        'HOST': 'S-FERHAD\SQLEXPRESS',
+        'PORT': '',
+        'OPTIONS':{
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'Trusted_Connection': 'yes',
+        },
     }
 }
 
