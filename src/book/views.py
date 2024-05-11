@@ -165,8 +165,11 @@ def returnBook(request,pk):
             borrow = form.save(commit=False)
             book = borrow.book
             book.available = True
-            delta = borrow.return_date - borrow.expected_return_date
-            borrow.fine = delta.days * 0.5
+
+            if borrow.return_date > borrow.expected_return_date:
+                delta = borrow.return_date - borrow.expected_return_date
+                borrow.fine = delta.days * 0.5
+                
             book.save()
             borrow.save()
             return redirect('borrowList')
