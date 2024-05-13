@@ -32,6 +32,7 @@ urlpatterns = [
     path('borrowList/', views.borrowList, name='borrowList'),
     path('borrowBook/', views.borrowBook, name='borrowBook'),
     path('returnBook/<str:pk>/', views.returnBook, name='returnBook'),
+    path('userBorrowed/', views.userBorrowed, name='userBorrowed'),
 
 
 ]
