@@ -84,9 +84,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'LMS',
-        'USER': 'sa',
+        'USER': 's-ferhad',
         'PASSWORD': 'Pa$$w0rd',
-        'HOST': 'localhost\SQLEXPRESS',
+        'HOST': 'S-FERHAD\SQLEXPRESS',
         'PORT': '',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
