@@ -9,7 +9,7 @@ class Book(models.Model):
     available = models.BooleanField(default=True)
 
     def __str__(self):
-        return ( self.title)
+        return (str(self.id) + self.title)
     
 class BorrowList(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
