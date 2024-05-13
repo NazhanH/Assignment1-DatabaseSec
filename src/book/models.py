@@ -20,4 +20,4 @@ class BorrowList(models.Model):
     fine = models.FloatField(default=0)
 
     def __str__(self):
-        return self.book.title
+        return (self.borrower.username + self.book.title + self.borrow_date.strftime('%Y%m%d'))

@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'django_filters',
 
     #third party apps
 
@@ -80,8 +82,17 @@ WSGI_APPLICATION = 'LibraryManagementSystem.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mssql',
+        'NAME': 'LMS',
+        'USER': 'sa',
+        'PASSWORD': 'Pa$$w0rd',
+        'HOST': 'localhost\SQLEXPRESS',
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'Trusted_Connection': 'yes',
+        },
+        
     }
 }
 
