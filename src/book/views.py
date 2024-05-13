@@ -196,6 +196,7 @@ def borrowList(request):
     }
     return render(request, 'borrowList.html', context)
 
+@login_required(login_url='/login')
 def userBorrowed(request):
     borrowList = BorrowList.objects.filter(borrower_id=request.user.id)
     total_fine = borrowList.aggregate(Sum('fine'))['fine__sum']
