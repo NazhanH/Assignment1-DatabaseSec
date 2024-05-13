@@ -6,8 +6,8 @@
 
 
 <h1>Catalogue</h1>
-<p>Shit's down below yo</p>
-{% if perms.book.add_book %}
+<p>Books down below</p>
+{% if request.user.is_staff %}
 <p><a href="{% url 'createBook' %}">add books here mate!</a></p>
 {% endif %}
 <br>
@@ -26,7 +26,7 @@
                 <th scope="col">Year published</th>
                 <th scope="col">Availability</th>
 
-                {% if perms.book.add_book %}
+                {% if request.user.is_staff %}
                 <th scope="col">Update</th>
                 <th scope="col">Delete</th>
                 {% endif %}
@@ -42,7 +42,7 @@
                 <td>{{ book.year}}</td>
                 <td>{{ book.available|yesno:"O,X" }}</td>
 
-                {% if perms.book.add_book %}
+                {% if request.user.is_staff %}
                 <td><a class="btn btn-sm btn-info" href="{% url 'updateBook' book.id %}" >Update</a></td>
                 <td><a class="btn btn-sm btn-danger" href="{% url 'deleteBook' book.id %}" >Delete</a></td>
                 {% endif %}
