@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'LMS',
         'USER': 's-ferhad',
         'PASSWORD': 'Pa$$w0rd',
-        'HOST': 'S-FERHAD\SQLEXPRESS',
+        'HOST': 'S-FERHAD',
         'PORT': '',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
