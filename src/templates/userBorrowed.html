@@ -36,7 +36,7 @@
             {% for borrowList in borrowList %}
             <tr>
             <th scope="row">{{ borrowList.id }}</th>
-            <td>{{ borrowList.book }}</td>
+            <td>{{ borrowList.book.title }}</td>
             <td>{{ borrowList.borrower }}</td>
             <td>{{ borrowList.borrow_date }}</td>
             <td>{{ borrowList.expected_return_date }}</td>
