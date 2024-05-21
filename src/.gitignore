@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 *.pyc
+=======
+*.pyc
+.env
+>>>>>>> 7dc97c1103d1bff671a8a717fac7fabd04d1098d

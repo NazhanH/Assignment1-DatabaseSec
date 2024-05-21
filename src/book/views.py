@@ -20,6 +20,8 @@ from django.contrib.auth.decorators import login_required
 
 from datetime import date
 
+from django.db.models import Sum
+
 # Create your views here.
 def home(request, *args, **kwargs):
     
@@ -165,8 +167,11 @@ def returnBook(request,pk):
             borrow = form.save(commit=False)
             book = borrow.book
             book.available = True
-            delta = borrow.return_date - borrow.expected_return_date
-            borrow.fine = delta.days * 0.5
+
+            if borrow.return_date > borrow.expected_return_date:
+                delta = borrow.return_date - borrow.expected_return_date
+                borrow.fine = delta.days * 0.5
+                
             book.save()
             borrow.save()
             return redirect('borrowList')
@@ -190,3 +195,18 @@ def borrowList(request):
         'myFilter': myFilter
     }
     return render(request, 'borrowList.html', context)
+
+@login_required(login_url='/login')
+def userBorrowed(request):
+    borrowList = BorrowList.objects.filter(borrower_id=request.user.id)
+    total_fine = borrowList.aggregate(Sum('fine'))['fine__sum']
+
+    myFilter = BorrowListFilter(request.GET, queryset=borrowList)
+    borrowList = myFilter.qs
+
+    context = {
+        'borrowList': borrowList,
+        'myFilter': myFilter,
+        'total_fine': total_fine,
+    }
+    return render(request, 'userBorrowed.html', context)

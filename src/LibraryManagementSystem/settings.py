@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,6 +85,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'LMS',
+<<<<<<< HEAD
         'USER': 's-ferhad',
         'PASSWORD': 'Pa$$w0rd',
         'HOST': 'S-FERHAD\SQLEXPRESS',
@@ -92,6 +94,17 @@ DATABASES = {
             'driver': 'ODBC Driver 17 for SQL Server',
             'Trusted_Connection': 'yes',
         },
+=======
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'Trusted_Connection': 'yes',
+        },
+        
+>>>>>>> 7dc97c1103d1bff671a8a717fac7fabd04d1098d
     }
 }
 

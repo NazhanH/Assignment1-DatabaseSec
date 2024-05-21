@@ -1,18 +1,32 @@
-
 {% extends "base.html" %}
 {% block title %}LMS{% endblock %}
 
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'home.css' %}">
+<div class="overlay"></div>
 
+<div class="header">
+    <h1>Welcome to Library Management System</h1>
+</div>
 
-<h1>Welcome to Library Management System</h1>
-<p>Click here to view catalogues.</p>
-<h2><a href="{% url 'catalogue' %}">Catalogue yo</a></h2>
-{% if perms.book.add_borrowList %}
-<h2><a href="{% url 'borrowList' %}">People be sowin yo</a></h2>
-{% endif %}
+<div class="content">
+    <div class="box1">
+        <a href="{% url 'catalogue' %}">Book Catalogue</a>
+    </div>
 
+    {% if user.is_authenticated%}
+    {% if request.user.is_staff %}
+    <div class="box2">
+        <a href="{% url 'borrowList' %}">Borrow & Return</a>
+    </div>
+    {% endif %}
 
-{% comment %} <a href="{% url 'catalogues' %}" class="btn btn-primary">View Catalogues</a> {% endcomment %}
+    <div class="box3">
+    <a href="{% url 'userBorrowed' %}">Books Borrowed</a>
+    </div>
+    {% endif %}
+</div>
+
 {% endblock %}

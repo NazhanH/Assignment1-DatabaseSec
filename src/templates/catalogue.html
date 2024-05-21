@@ -6,8 +6,8 @@
 
 
 <h1>Catalogue</h1>
-<p>Shit's down below yo</p>
-{% if perms.book.add_book %}
+<p>Books down below</p>
+{% if request.user.is_staff %}
 <p><a href="{% url 'createBook' %}">add books here mate!</a></p>
 {% endif %}
 <br>
@@ -19,14 +19,14 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Publisher</th>
                 <th scope="col">Year published</th>
                 <th scope="col">Availability</th>
 
-                {% if perms.book.add_book %}
+                {% if request.user.is_staff %}
                 <th scope="col">Update</th>
                 <th scope="col">Delete</th>
                 {% endif %}
@@ -35,14 +35,14 @@
         <tbody>
             {% for book in books %}
                 <tr>
-                <th scope="row">{{ forloop.counter }}</th>
+                <th scope="row">{{ book.id }}</th>
                 <td>{{ book.title }}</td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.publication }}</td>
                 <td>{{ book.year}}</td>
                 <td>{{ book.available|yesno:"O,X" }}</td>
 
-                {% if perms.book.add_book %}
+                {% if request.user.is_staff %}
                 <td><a class="btn btn-sm btn-info" href="{% url 'updateBook' book.id %}" >Update</a></td>
                 <td><a class="btn btn-sm btn-danger" href="{% url 'deleteBook' book.id %}" >Delete</a></td>
                 {% endif %}
