@@ -85,16 +85,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'LMS',
-<<<<<<< HEAD
-        'USER': 's-ferhad',
-        'PASSWORD': 'Pa$$w0rd',
-        'HOST': 'S-FERHAD\SQLEXPRESS',
-        'PORT': '',
-        'OPTIONS':{
-            'driver': 'ODBC Driver 17 for SQL Server',
-            'Trusted_Connection': 'yes',
-        },
-=======
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST'),
@@ -104,7 +94,6 @@ DATABASES = {
             'Trusted_Connection': 'yes',
         },
         
->>>>>>> 7dc97c1103d1bff671a8a717fac7fabd04d1098d
     }
 }
 

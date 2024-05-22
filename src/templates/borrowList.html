@@ -17,7 +17,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">BorrowID</th>
                 <th scope="col">Book</th>
                 <th scope="col">Borrower</th>
                 <th scope="col">Borrowdate</th> 
@@ -29,7 +29,7 @@
             {% if not borrowList.return_date %}
             <tr>
             <th scope="row">{{ borrowList.id }}</th>
-            <td>{{ borrowList.book }}</td>
+            <td>{{ borrowList.book.title }}</td>
             <td>{{ borrowList.borrower }}</td>
             <td>{{ borrowList.borrow_date }}</td>
 

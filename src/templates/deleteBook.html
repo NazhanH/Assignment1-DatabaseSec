@@ -10,8 +10,8 @@
 
 <form action="{% url 'deleteBook' book.id %}" method="post">
     {% csrf_token %}
-    <p><a href="{% url 'catalogue' %}">On second thought...</a></p>
-    <input type="submit" name="WIPE THAT BITCH OFF THE FACE OF THE EARTH">
+    <p><a href="{% url 'catalogue' %}">No, I changed my mind.</a></p>
+    <input type="submit" name="Delete">
 </form>
 
 {% endblock %}
