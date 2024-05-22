@@ -22,7 +22,7 @@ This is a library management system that allows users to borrow and return books
 
 #### How to run the system
 
-**Note: Make sure you have Python and mssql installed on your system and that the database and user credentials have been setup beforehand and configured in a .env file in the src folder**
+**Note: Make sure you have Python, mssql and ODBC driver for SQL Server installed on your system and that the database and user credentials have been setup beforehand and configured in a .env file in the src folder**
 
 1. Install the required packages using the following command:
 ```pip install -r requirements.txt```
