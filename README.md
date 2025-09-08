@@ -1,4 +1,4 @@
-# Assignment 1 - Database Security
+# Assignment - Database Security
 
 ## Group 10
 
