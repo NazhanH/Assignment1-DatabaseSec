@@ -1,15 +1,22 @@
-# Assignment1-DatabaseSec
+# Assignment 1 - Database Security
 
 ## Group 10
-## Members
-Syed Danial Imtiaz(1221301145) 
-Siddiq Ferhad(1211103095)
-Nazhan Harraz(1221301122)
 
-### Library Management System
-This is a library management system that allows users to borrow and return books. The system is implemented using Python and mssql.
+* **Syed Danial Imtiaz** (1221301145)
+* **Siddiq Ferhad** (1211103095)
+* **Nazhan Harraz** (1221301122)
 
-#### The system has the following features:
+---
+
+## Library Management System
+
+This project is a **Library Management System** that allows users to borrow and return books.
+The system is implemented using **Python** and **MS SQL Server**.
+
+---
+
+### Features
+
 1. Add a new book
 2. Remove a book
 3. Borrow a book
@@ -20,14 +27,30 @@ This is a library management system that allows users to borrow and return books
 8. Search for a book
 9. View fines
 
-#### How to run the system
+---
 
-**Note: Make sure you have Python, mssql and ODBC driver for SQL Server installed on your system and that the database and user credentials have been setup beforehand and configured in a .env file in the src folder**
+### How to Run the System
 
-1. Install the required packages using the following command:
-```pip install -r requirements.txt```
-2. Go into the root directory which is the src folder
-3. Make migrations using the following command:
-```python manage.py makemigrations``` followed by ```python manage.py migrate```
-4. Run the server using the following command:
-```python manage.py runserver```
+> **Note:** Ensure that **Python**, **MS SQL Server**, and the **ODBC driver for SQL Server** are installed on your system.
+> Also, make sure the database and user credentials are set up beforehand and configured in a `.env` file inside the `src` folder.
+
+1. Install the required packages:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Navigate to the root directory (`src` folder).
+
+3. Make migrations:
+
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+4. Run the development server:
+
+   ```bash
+   python manage.py runserver
+   ```
